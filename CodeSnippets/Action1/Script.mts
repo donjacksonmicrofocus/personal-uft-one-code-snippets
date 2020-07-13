@@ -51,10 +51,9 @@ AIUtil.SetContext AppContext																'Tell the AI engine to point at the 
 
 End Function
 
-
-Set clipBoard = CreateObject("Mercury.Clipboard") 
-
-
+'===========================================================
+'The below set of functions are for allowing a PDF verification, utilizing moving contents to the clipboard, and verifying those contents as text.
+'===========================================================
 Public Function OpenPDFDocument(ByRef pdfPath)
       SystemUtil.Run pdfPath
 End Function
@@ -89,7 +88,6 @@ Public Function GetTextFromCurrentPage
     clipBoard.Clear
     GetTextFromCurrentPage = textOfCurrentPage
 End Function
-
 
 Public Function FindCheckNumberFromCurrentPage
      currentPageText = GetTextFromCurrentPage()
@@ -165,7 +163,10 @@ Public Function VerifyCheckNumberAndSignatureFromPage(ByRef pageNumber, ByRef ch
        		Reporter.ReportEvent micFail, "CheckForNumberAndSignature", "Invalid page number"
        End If
 End Function
+
 Function RunThePDFVerificationProcess
+
+Set clipBoard = CreateObject("Mercury.Clipboard") 
 
 OpenPDFDocument "C:\Check.pdf"
 PrepareForReplay 'run this first time to ensure right settings in adobe pdf
@@ -174,4 +175,8 @@ print FindPageForTextContent("1000013580") ' call this if you need to find a par
 VerifyCheckNumberAndSignatureFromPage 3,1000013571 ' call this to verify that a particular pdf page maches a check number and a signature
 
 End Function 
+'===========================================================
+'End of the PDF verification functions.
+'===========================================================
+
 
