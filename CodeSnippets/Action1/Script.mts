@@ -29,7 +29,12 @@ Function PropertiesDebug
 'CPActual = "'" & CPActual & "'"															'Set the variable for what is the object property at run time enclosed with a single quotes so we can find leading/trailing spaces
 'Print "Expected is " & CPExpected															'Output the expected value to the output log
 'Print "Actual is " & CPActual																'Output the actual value to the output log
-	
+
+Set Obj = Browser("micClass:=Browser").Page("micClass:=Page").Image("alt:=Fast Reply").Object
+For i = 0 to Obj.Attributes.Length-1
+	Reporter.ReportEvent micGeneral, Obj.Attributes(i).Name,Obj.Attributes(i).Value
+Next
+
 End Function
 
 '===========================================================
