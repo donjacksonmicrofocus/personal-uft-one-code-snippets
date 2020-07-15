@@ -30,10 +30,17 @@ Function PropertiesDebug
 'Print "Expected is " & CPExpected															'Output the expected value to the output log
 'Print "Actual is " & CPActual																'Output the actual value to the output log
 
-Set Obj = Browser("micClass:=Browser").Page("micClass:=Page").Image("alt:=Fast Reply").Object
-For i = 0 to Obj.Attributes.Length-1
-	Reporter.ReportEvent micGeneral, Obj.Attributes(i).Name,Obj.Attributes(i).Value
+Set TestLink = Browser("Google").Page("Google").Link("Advanced Search")
+
+sNamesTO = "GetTOProperty for Test Object" & vbNewLine & "Identfication Properties: Values" & vbNewLine
+sNamesRO = "GetROProperty for Test Object" & vbNewLine & "Identfication Properties: Values" & vbNewLine
+
+For i = 0 to UBound(arrNames)
+    sNamesTO = sNamesTO & arrNames(i) & ": " & TestLink.GetTOProperty(arrNames(i)) & vbNewLine
+    sNamesRO = sNamesRO & arrNames(i) & ": " & TestLink.GetROProperty(arrNames(i)) & vbNewLine
 Next
+MsgBox sNamesTO
+MsgBox sNamesRO
 
 End Function
 
