@@ -49,6 +49,12 @@ AppContext.Maximize																			'Maximize the application to give the best
 AppContext.Sync																				'Wait for the browser to stop spinning
 AIUtil.SetContext AppContext																'Tell the AI engine to point at the application
 
+'===========================================================
+'Application script goes here
+'===========================================================
+
+AppContext.Close																			'Close the application at the end of your script
+
 End Function
 
 '===========================================================
