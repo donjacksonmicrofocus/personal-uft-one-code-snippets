@@ -201,9 +201,18 @@ End Function
 'Function for handling objects where the WaitProperty(Enabled,15000) doesn't work properly
 '===========================================================
 Function CustomSetValue (Object, ValueToSet)
+	
+	Dim IterationCount
+	
+	IterationCount = 0
 	Do
 		Object.Set ValueToSet
 		wait(1)
+		IterationCount = IterationCount + 1
+		If IterationCount > 60 Then
+			msgbox "The object " & Object & " didn't allow proper entry within 60 seconds, please debug."
+			Loop
+		End If
 	Loop Until Object.GetTOProperty("value") = ValueToSet
 	
 End Function
