@@ -197,4 +197,13 @@ End Function
 'End of the PDF verification functions.
 '===========================================================
 
-
+'===========================================================
+'Function for handling objects where the WaitProperty(Enabled,15000) doesn't work properly
+'===========================================================
+Function CustomSetValue (Object, ValueToSet)
+	Do
+		Object.Set ValueToSet
+		wait(1)
+	Loop Until Object.GetTOProperty("value") = ValueToSet
+	
+End Function
