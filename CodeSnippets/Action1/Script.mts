@@ -216,3 +216,4 @@ Function CustomSetValue (Object, ValueToSet)
 	Loop Until Object.GetTOProperty("value") = ValueToSet
 	
 End Function
+
