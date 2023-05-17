@@ -211,9 +211,39 @@ Function CustomSetValue (Object, ValueToSet)
 		IterationCount = IterationCount + 1
 		If IterationCount > 60 Then
 			msgbox "The object " & Object & " didn't allow proper entry within 60 seconds, please debug."
-			Loop
+			Exit Do
 		End If
 	Loop Until Object.GetTOProperty("value") = ValueToSet
 	
 End Function
 
+'===========================================================
+'Function for getting the text in a textblock based on an anchor textblock passing in the anchor textblock text and the direction of the anchor textblock
+'===========================================================
+Function fnGetTextBlockFromTextBlockAnchor (TextBlockAnchor, Direction)
+
+Dim AnchorDirection, BadValue
+
+BadValue = FALSE
+
+	Select Case lcase(Direction)
+		Case "up"
+			AnchorDirection = micWithAnchorAbove 
+		Case "down"
+			AnchorDirection = micWithAnchorBelow
+		Case "left"
+			AnchorDirection = micWithAnchorOnLeft
+		Case "right"
+			AnchorDirection = micWithAnchorOnRight
+		Case Else
+			BadValue = TRUE
+			Reporter.ReportEvent micFail, "GetTextBlockFromTextBlockAnchor", "The Direction passed in value " & Direction & " is not handled."
+	End Select
+
+	If BadValue Then
+		fnGetTextBlockFromTextBlockAnchor = micFail
+	Else
+		fnGetTextBlockFromTextBlockAnchor = AIUtil.FindTextBlock(micAnyText, AnchorDirection, AIUtil.FindTextBlock(TextBlockAnchor)).GetText
+	End If
+	
+End Function
