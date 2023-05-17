@@ -226,7 +226,7 @@ Dim AnchorDirection, BadValue
 
 BadValue = FALSE
 
-	Select Case lcase(Direction)
+	Select Case trim(lcase(Direction))
 		Case "up"
 			AnchorDirection = micWithAnchorAbove 
 		Case "down"
